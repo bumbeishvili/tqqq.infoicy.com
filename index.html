@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BPC62S5T34"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BPC62S5T34');
+    </script>
     <title>TQQQ Strategy</title>
     <style>
         * {
@@ -10,7 +19,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #0a0a0a;
@@ -21,37 +30,37 @@
             justify-content: center;
             padding: 24px;
         }
-        
+
         .dashboard {
             max-width: 800px;
             width: 100%;
         }
-        
+
         .header {
             text-align: center;
             margin-bottom: 48px;
         }
-        
+
         .title {
             font-size: 2rem;
             font-weight: 600;
             color: #ffffff;
             margin-bottom: 8px;
         }
-        
+
         .subtitle {
             font-size: 0.9rem;
             color: #666666;
             font-weight: 400;
         }
-        
+
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             margin-bottom: 32px;
         }
-        
+
         .card {
             background: #111111;
             border: 1px solid #222222;
@@ -59,11 +68,11 @@
             padding: 24px;
             transition: border-color 0.2s ease;
         }
-        
+
         .card:hover {
             border-color: #333333;
         }
-        
+
         .card-title {
             font-size: 0.8rem;
             font-weight: 500;
@@ -72,20 +81,20 @@
             letter-spacing: 0.5px;
             margin-bottom: 16px;
         }
-        
+
         .price {
             font-size: 2.2rem;
             font-weight: 700;
             color: #ffffff;
             margin-bottom: 8px;
         }
-        
+
         .sma {
             font-size: 0.9rem;
             color: #666666;
             margin-bottom: 16px;
         }
-        
+
         .change {
             font-size: 1rem;
             font-weight: 600;
@@ -93,24 +102,24 @@
             border-radius: 6px;
             display: inline-block;
         }
-        
+
         .positive {
             background: rgba(34, 197, 94, 0.1);
             color: #22c55e;
         }
-        
+
         .negative {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
         }
-        
+
         .status-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             margin-bottom: 24px;
         }
-        
+
         .status-card {
             background: #111111;
             border: 1px solid #222222;
@@ -119,11 +128,11 @@
             text-align: center;
             transition: border-color 0.2s ease;
         }
-        
+
         .status-card:hover {
             border-color: #333333;
         }
-        
+
         .status-label {
             font-size: 0.8rem;
             font-weight: 500;
@@ -132,7 +141,7 @@
             letter-spacing: 0.5px;
             margin-bottom: 16px;
         }
-        
+
         .status {
             font-size: 0.9rem;
             font-weight: 600;
@@ -140,66 +149,68 @@
             border-radius: 6px;
             display: inline-block;
         }
-        
+
         .safe {
             background: rgba(34, 197, 94, 0.1);
             color: #22c55e;
         }
-        
+
         .buy {
             background: rgba(34, 197, 94, 0.1);
             color: #22c55e;
         }
-        
+
         .sell {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
         }
-        
+
         .warning {
             background: rgba(251, 191, 36, 0.1);
             color: #fbbf24;
         }
-        
+
         .hold {
             background: rgba(156, 163, 175, 0.1);
             color: #9ca3af;
         }
-        
+
         .footer {
             text-align: center;
             font-size: 0.8rem;
             color: #666666;
         }
-        
+
         @media (max-width: 768px) {
+
             .grid,
             .status-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
-            
+
             .dashboard {
                 padding: 16px;
             }
-            
+
             .title {
                 font-size: 1.5rem;
             }
-            
+
             .price {
                 font-size: 1.8rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard">
         <div class="header">
             <h1 class="title">TQQQ Strategy</h1>
             <p class="subtitle">SPY 200SMA Signal • QQQ Safety Override</p>
         </div>
-        
+
         <div class="grid">
             <div class="card">
                 <div class="card-title">QQQ</div>
@@ -207,7 +218,7 @@
                 <div class="sma" id="qqq-sma">200 SMA: $523.86</div>
                 <div class="change positive" id="qqq-change">+14.41%</div>
             </div>
-            
+
             <div class="card">
                 <div class="card-title">SPY</div>
                 <div class="price" id="spy-price">$663.70</div>
@@ -215,19 +226,19 @@
                 <div class="change positive" id="spy-change">+10.91%</div>
             </div>
         </div>
-        
+
         <div class="status-grid">
             <div class="status-card">
                 <div class="status-label">QQQ Status</div>
                 <div class="status safe" id="qqq-status">NORMAL RANGE</div>
             </div>
-            
+
             <div class="status-card">
                 <div class="status-label">SPY Signal</div>
                 <div class="status buy" id="spy-status">BUY TQQQ</div>
             </div>
         </div>
-        
+
         <div class="footer">
             <div style="margin-bottom: 16px;">
                 <a href="https://investment.infoicy.com/" target="_blank" style="
@@ -260,40 +271,40 @@
                 qqqStatus,
                 spyStatus
             ] = data;
-            
+
             // Update prices
             document.getElementById('qqq-price').textContent = `$${parseFloat(qqqPrice).toFixed(2)}`;
             document.getElementById('spy-price').textContent = `$${parseFloat(spyPrice).toFixed(2)}`;
-            
+
             // Update SMAs
             document.getElementById('qqq-sma').textContent = `200 SMA: $${parseFloat(qqqSma).toFixed(2)}`;
             document.getElementById('spy-sma').textContent = `200 SMA: $${parseFloat(spySma).toFixed(2)}`;
-            
+
             // Update changes
             const qqqChange = parseFloat(qqqDistance);
             const spyChange = parseFloat(spyDistance);
-            
+
             const qqqChangeElement = document.getElementById('qqq-change');
             const spyChangeElement = document.getElementById('spy-change');
-            
+
             qqqChangeElement.textContent = `${qqqChange >= 0 ? '+' : ''}${qqqChange.toFixed(2)}%`;
             spyChangeElement.textContent = `${spyChange >= 0 ? '+' : ''}${spyChange.toFixed(2)}%`;
-            
+
             qqqChangeElement.className = `change ${qqqChange >= 0 ? 'positive' : 'negative'}`;
             spyChangeElement.className = `change ${spyChange >= 0 ? 'positive' : 'negative'}`;
-            
+
             // Update status
             document.getElementById('qqq-status').textContent = qqqStatus;
             document.getElementById('spy-status').textContent = spyStatus;
-            
+
             // Update status colors
             document.getElementById('qqq-status').className = `status ${getStatusClass(qqqStatus)}`;
             document.getElementById('spy-status').className = `status ${getStatusClass(spyStatus)}`;
-            
+
             // Update timestamp
             document.getElementById('timestamp').textContent = new Date().toLocaleTimeString();
         }
-        
+
         function getStatusClass(status) {
             const lower = status.toLowerCase();
             if (lower.includes('buy')) return 'buy';
@@ -303,7 +314,7 @@
             if (lower.includes('normal') || lower.includes('safe')) return 'safe';
             return 'hold';
         }
-        
+
         // Initialize with data
         const data = [
             599.35,
@@ -315,9 +326,10 @@
             "QQQ NORMAL - NO ACTION",
             "BUY TQQQ (if QQQ normal)"
         ];
-        
+
         updateDashboard(data);
         window.updateStrategyData = updateDashboard;
     </script>
 </body>
+
 </html>
