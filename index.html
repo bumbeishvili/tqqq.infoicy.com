@@ -207,6 +207,43 @@
             margin-bottom: 24px;
         }
 
+        .additional-info {
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: #111111;
+            border: 1px solid #222222;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: border-color 0.2s ease;
+        }
+
+        .info-card:hover {
+            border-color: #333333;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            display: inline-block;
+        }
+
         .status-card {
             background: #111111;
             border: 1px solid #222222;
@@ -581,6 +618,13 @@
             </article>
         </section>
 
+        <section class="additional-info" aria-label="Investment Information">
+            <article class="info-card">
+                <h3 class="info-label">Fresh Investment</h3>
+                <div class="info-value" id="fresh-investment">N/A</div>
+            </article>
+        </section>
+
         <footer class="footer">
             <div style="margin-bottom: 16px;">
                 <a href="https://investment.infoicy.com/" target="_blank" style="
@@ -638,7 +682,8 @@
                 spySma,
                 spyDistance,
                 qqqStatus,
-                spyStatus
+                spyStatus,
+                freshInvestment
             ] = data;
 
             // Update prices
@@ -670,6 +715,11 @@
             document.getElementById('qqq-status').className = `status ${getStatusClass(qqqStatus)}`;
             document.getElementById('spy-status').className = `status ${getStatusClass(spyStatus)}`;
 
+            // Update Fresh Investment
+            if (document.getElementById('fresh-investment')) {
+                document.getElementById('fresh-investment').textContent = freshInvestment;
+            }
+
             // Update timestamp
             document.getElementById('timestamp').textContent = new Date().toLocaleTimeString();
         }
@@ -693,6 +743,9 @@
         document.getElementById('spy-change').textContent = 'Loading...';
         document.getElementById('qqq-status').textContent = 'Loading...';
         document.getElementById('spy-status').textContent = 'Loading...';
+        if (document.getElementById('fresh-investment')) {
+            document.getElementById('fresh-investment').textContent = 'Loading...';
+        }
 
         // CSV URL from Google Sheets
         const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR7YM5ElOtLeKCEKhhSd3bem2Hql3xdkIRrTYQKzKgggbcPCWF05X4q4EpWaprqGvW5aspqxs5UZEfA/pub?gid=1726896893&single=true&output=csv";
@@ -715,7 +768,8 @@
                         latestData.SPY_SMA || latestData['SPY 200 SMA'] || 598.4363,
                         latestData.SPY_Distance || latestData['SPY Distance %'] || 10.90570542,
                         latestData.QQQ_Status || latestData['QQQ Status'] || "QQQ NORMAL - NO ACTION",
-                        latestData.SPY_Status || latestData['SPY Status'] || "BUY TQQQ (if QQQ normal)"
+                        latestData.SPY_Status || latestData['SPY Status'] || "BUY TQQQ (if QQQ normal)",
+                        latestData.Fresh_Investment || latestData['Fresh Investment'] || "N/A"
                     ];
                     
                     updateDashboard(strategyData);
@@ -737,7 +791,8 @@
                     598.4363,
                     10.90570542,
                     "QQQ NORMAL - NO ACTION",
-                    "BUY TQQQ (if QQQ normal)"
+                    "BUY TQQQ (if QQQ normal)",
+                    "N/A"
                 ];
                 updateDashboard(fallbackData);
             });
